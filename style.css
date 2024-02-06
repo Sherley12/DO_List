@@ -97,6 +97,8 @@ header
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   transform: translateY(-78px);
   transform: translateY(-90px);
+  padding-bottom: 0;
+  /* height: 540px; */
 }
 
 .container .input-field {
@@ -105,13 +107,14 @@ header
   width: 100%;
 }
 
-/* .filter-todo{
- padding:1px 1px 2px 1px;
- width: 60px;
- display:none;
- position: absolute;
- min-inline-size: 2px;
-} */
+.filter-todo{
+ /* padding:1px 1px 2px 1px; */
+ width: 130px;
+ transform: translateY(-35%);
+ /* display:none; */
+ /* position: absolute; */
+ /* min-inline-size: 3px; */
+}
 
 .input-field textarea {
   height: 100%;
@@ -124,7 +127,7 @@ header
   border: 1px solid #ccc;
   resize: none;
   color: #111111;
-  overflow: hidden;
+  overflow:auto;
 }
 
 .input-field textarea:focus {
@@ -158,7 +161,7 @@ textarea::-webkit-scrollbar {
     color: #e0cf6f;
 } */
 .note-icon.clicked {
-    transform: rotate(180deg); /* Rotate 360 degrees when clicked */
+    transform: rotate(180deg);
 }
 
 
@@ -195,7 +198,7 @@ textarea::-webkit-scrollbar {
   height: 16px;
   min-width: 16px;
   accent-color: #4070f4;
-  
+  cursor: pointer;
   /* pointer-events: none; */
 
 }
@@ -250,6 +253,7 @@ textarea::-webkit-scrollbar {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transform: translateY(-30%);
 }
 
 .clear-button:hover {
@@ -290,26 +294,73 @@ textarea::-webkit-scrollbar {
 */
 
  .notification {
-    box-sizing:border-box;
+    /* box-sizing:border-box;
     /* text-align: center; */
-    /* padding: 1px  ; */
-    /* top:72px; */
-    color: #fff;
+    /* left: 50% ; */
+    /* top: 20px; */
+    /* transform: translateX(-50%);  */
+    /* color: #fff; */ 
+    padding: 8px;
+    min-width: 300px;
+    /* min-height: 100%; */
+    right:0px;
+    /* bottom: 0px; */
+    top:596px;
+    border-radius: 4px;
+    /* border-left: 4px solid #fff; */
     font-size: 18px;
     position:absolute;
-     right:200px;
-    transform: translateY(86px); 
-    min-width :45px;   
+    /* z-index: 1000; */
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+    /* transition: opacity 0.5s ease-in-out; */
+    
 } 
    
 
-.success {
-    background-color:  #4070f4;
+/* .notification {
+  padding: 1px;
+  min-width: 200px;
+  right: 50%;
+  bottom: 20px;
+  transform: translateX(50%);
+  border-radius: 8px;
+  height:auto;
+  font-size: 16px;
+  position: fixed;
+  z-index: 1000;
+  /* background-color: #333; */
+  /* color: #fff;
+  text-align: center;
+  justify-content: center; */
+  /* opacity: 0; */
+  /* transition: opacity 0.5s ease-in-out; */
+/* } */
+
+/* @media screen and (max-width: 768px) {
+  .notification {
+      width: 90%;
+      max-width: 300px;
+      bottom: 10px;
+      right: 50%;
+      transform: translateX(50%);
   }
-  
+} */
+
+
+ 
+
+.success {
+    background-color:  #ced8f3;
+    background-color:  #bdeba8;
+    background-image: linear-gradient(to right,#7cebaa,#b0eeb9);
+    background-image: linear-gradient(to right, #DECBA4, #3E5151);
+    /* background-image: linear-gradient(to right, #ff6e7f, #bfe9ff); */
+    background-image: linear-gradient(to right, #00b09b, #96c93d);
+
+}
 .danger {
-    background-color:  #4070f4;
-    /* background-color: #5f204f; */
+    background-color:  #bdeba8;
+    background-image: linear-gradient(to right, #D1BAD2, #2884B8);
   } 
    
 /*   confirmation  */
@@ -328,13 +379,19 @@ textarea::-webkit-scrollbar {
   .confirmation-content {
     background: #ebe1c5 ;
     background-image: linear-gradient(to right, #E8807F,#E6C84F);
-    padding: 20px;
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 10px;
     text-align: center;
+    max-width: 400px;
+    width: 100%;
+    overflow-y:auto;
+    word-wrap: break-word;
   }
   
   .confirmation-content p {
     margin-bottom: 15px;
+    max-height: 150px;
+    
   }
   
   .confirmation-content button {
@@ -356,3 +413,14 @@ textarea::-webkit-scrollbar {
   }
     
 
+         
+
+
+
+  
+
+
+.list.pending-change {
+  background-color: #ffc; /* Change the background color to indicate pending change */
+  transition: background-color 0.5s ease; /* Add a transition effect for a smoother change */
+}
