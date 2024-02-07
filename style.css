@@ -420,7 +420,3 @@ textarea::-webkit-scrollbar {
   
 
 
-.list.pending-change {
-  background-color: #ffc; /* Change the background color to indicate pending change */
-  transition: background-color 0.5s ease; /* Add a transition effect for a smoother change */
-}

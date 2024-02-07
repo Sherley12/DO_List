@@ -106,7 +106,7 @@ document.addEventListener("paste", (e) => {
     }
 });
 
-// ...
+
 
 // 8. Note icon
 noteIcon.addEventListener("click", () => {
@@ -287,31 +287,44 @@ function enableEditMode(listItem) {
 }
  
 
-//  16. Function to save the edited task
+// 16. Function to save the edited task
 function saveEditedTask(listItem, span, originalText, newText) {
-  if (newText.length !== originalText.length) {
-      if (newText.length > 0) {
-          const isDuplicate = isDuplicateTask(newText, listItem);
-          if (!isDuplicate) {
-              listItem.remove();
-
-              addTaskToList(newText, listItem.classList.contains('completed'));
-              showNotification("Your Task Updated", "success");
-              updateLocalStorage();
-
-          } else {
-              showNotification("Task already exists", "danger");
-          }
-      } else {
-          listItem.remove();
-          showNotification("Task cannot be empty", "danger");
-          updateLocalStorage();
-          updateTaskCounts();
-      }
-  }
-  span.contentEditable = false;
+    if (newText.length !== originalText.length || newText !== originalText) {
+        if (newText.length > 0) {
+            // Check if the edited task is a duplicate
+            const isDuplicate = isDuplicateTask(newText);
+            if (!isDuplicate) {
+                // Remove the original task
+                listItem.remove();
+                // Add the edited task as a new task using the modified addTaskToList
+                addTaskToList(newText, listItem.classList.contains('completed'));
+                showNotification("Your Task Updated", "success");
+                // Update local storage after editing task
+                updateLocalStorage();
+            } else {
+                // Show notification when the edited task already exists
+                showNotification("Edited task already exists and has been deleted", "danger");
+                // Remove the edited task
+                listItem.remove();
+                // Update local storage after deleting the edited task
+                updateLocalStorage();
+                updateTaskCounts();
+            }
+        } else {
+            // If edited task is empty, delete the list item
+            listItem.remove();
+            showNotification("Task cannot be empty", "danger");
+            // Update local storage after deleting task
+            updateLocalStorage();
+            updateTaskCounts();
+        }
+    }
+    span.contentEditable = false;
 }
 
+
+  
+  
 // 17. Highlight the list while hovering
 function highlightOnHover(listItem) {
   listItem.classList.add('hovered');
@@ -359,59 +372,83 @@ function addTaskToList(taskText, isCompleted) {
 
 }
 
-
-
+// Function to update task status with confirmation for unchecking
 function updateTaskStatus(checkbox) {
     const listItem = checkbox.closest('.list');
-    const isCompleted = checkbox.checked;    
-    // Function to handle the completion of the task after confirmation
-    const confirmCompletion = () => {
-        handleTaskStatusUpdate(listItem, isCompleted);
+    const isCompleted = checkbox.checked;
+
+    // Function to handle the completion of the task
+    const handleCompletion = () => {
+        listItem.classList.toggle('completed', isCompleted);
+        showNotification(`Task is marked as ${isCompleted ? 'completed' : 'in-progress'}`, "success");
+        updateLocalStorage();
+        updateTaskCounts();
     };
-    // Show confirmation dialog before completing the task
-    showConfirmationDialog("Are you sure you want modify the status?", confirmCompletion, () => {
-      // Restore the original state if the user cancels the confirmation
-        checkbox.checked = !isCompleted;       
-    });
-}
 
-
-// // 21. Helper function to handle task status update
-function handleTaskStatusUpdate(listItem, isCompleted) {
-    const span = listItem.querySelector('.task');
-    const newText = span.textContent.trim();
-    
-    if (isCompleted) {
-        if (newText.length > 0) {
-            listItem.classList.add('completed');
-            showNotification("Your task is completed", "success");
-        } else {
-            // If the task is empty, don't mark it as completed
-            checkbox.checked = false;
-            showNotification("Task cannot be empty", "danger");
-            return;
-        }
-    } else {
-        if (newText.length > 0) {
-            listItem.classList.remove('completed');
-            showNotification("Task status is Modified", "success");
-        } else {       
-            // If the task is empty, remove it from the list
-            listItem.remove();
-            showNotification("Task cannot be empty", "danger");
-            updateLocalStorage();
-            allTasks();
-            filterTasks();
-            updateTaskCounts();
-            return;
-        }
+    // If the task is empty, don't mark it as completed
+    const newText = listItem.querySelector('.task').textContent.trim();
+    if (isCompleted && newText.length === 0) {
+        checkbox.checked = false;
+        showNotification("Task cannot be empty", "danger");
+        return;
     }
 
-    updateLocalStorage();
-    allTasks();
-    filterTasks();
-    updateTaskCounts();
+    // If unchecking the checkbox, show a confirmation dialog
+    if (!isCompleted) {
+        showConfirmationDialog(
+            "Are you sure you want to mark this task as in-progress?",
+            handleCompletion,
+            () => {
+                // Restore the original state if the user cancels the confirmation
+                checkbox.checked = true;
+            }
+        );
+    } else {
+        // For checking the checkbox, update the UI immediately
+        handleCompletion();
+    }
 }
+
+
+
+
+
+// // // 21. Helper function to handle task status update
+// function handleTaskStatusUpdate(listItem, isCompleted) {
+//     const span = listItem.querySelector('.task');
+//     const newText = span.textContent.trim();
+    
+//     if (isCompleted) {
+//         if (newText.length > 0) {
+//             listItem.classList.add('completed');
+//             showNotification("Your task is completed", "success");
+//         } else {
+//             // If the task is empty, don't mark it as completed
+//             checkbox.checked = false;
+//             showNotification("Task cannot be empty", "danger");
+//             return;
+//         }
+//     } else {
+//         if (newText.length > 0) {
+//             listItem.classList.remove('completed');
+//             showNotification("Task status is Modified", "success");
+//         } else {       
+//             // If the task is empty, remove it from the list
+//             listItem.remove();
+//             showNotification("Task cannot be empty", "danger");
+//             updateLocalStorage();
+//             allTasks();
+//             filterTasks();
+//             updateTaskCounts();
+//             return;
+//         }
+//     }
+
+//     updateLocalStorage();
+//     allTasks();
+//     filterTasks();
+//     updateTaskCounts();
+// }
 
 
 // 22. Filter tasks based on the selected option
@@ -501,4 +538,49 @@ function updateLocalStorage() {
         completed: task.classList.contains('completed')
     }));
     localStorage.setItem("tasks", JSON.stringify(taskObjects.reverse()));
+}
+
+
+// Function to update task status with confirmation for unchecking
+function updateTaskStatus(checkbox) {
+    const listItem = checkbox.closest('.list');
+    const isCompleted = checkbox.checked;
+
+    // Function to handle the completion of the task
+    const handleCompletion = () => {
+        listItem.classList.toggle('completed', isCompleted);
+        showNotification(`Task is marked as ${isCompleted ? 'completed' : 'in-progress'}`, "success");
+
+        // Update local storage immediately
+        updateLocalStorage();
+
+        // Update task counts
+        updateTaskCounts();
+
+        // Filter tasks based on the selected option
+        filterTasks();
+    };
+
+    // If the task is empty, don't mark it as completed
+    const newText = listItem.querySelector('.task').textContent.trim();
+    if (isCompleted && newText.length === 0) {
+        checkbox.checked = false;
+        showNotification("Task cannot be empty", "danger");
+        return;
+    }
+
+    // If unchecking the checkbox, show a confirmation dialog
+    if (!isCompleted) {
+        showConfirmationDialog(
+            "Are you sure you want to mark this task as in-progress?",
+            handleCompletion,
+            () => {
+                // Restore the original state if the user cancels the confirmation
+                checkbox.checked = true;
+            }
+        );
+    } else {
+        // For checking the checkbox, update the UI and local storage immediately
+        handleCompletion();
+    }
 }
