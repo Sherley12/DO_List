@@ -8,21 +8,6 @@
  font-family: "Poppins", sans-serif;
 }
 
-/* *:focus {
-  outline: none;
-  color: transparent;
-  border: none;
-}
- */
-
-/* body {
-    background-color: plum;
-    background-image: linear-gradient(rgb(169, 146, 167), rgb(236, 164, 201), rgb(187, 187, 230), plum, pink);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-y: hidden;
-} */
 
 body {
     background-image: url('mount2.jpg');
@@ -32,6 +17,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
     overflow-y: hidden;
 }
 
@@ -98,6 +84,8 @@ header
   transform: translateY(-78px);
   transform: translateY(-90px);
   padding-bottom: 0;
+  
+
   /* height: 540px; */
 }
 
@@ -107,18 +95,43 @@ header
   width: 100%;
 }
 
-.filter-todo{
- /* padding:1px 1px 2px 1px; */
- width: 130px;
- transform: translateY(-35%);
- 
- z-index: 1;
-
- /* display:none; */
- /* position: absolute; */
- /* min-inline-size: 3px; */
-}
-
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-header {
+    background-color: #4070f4;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1;
+  }
+  
+  .dropdown-option {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .dropdown-option:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Show the dropdown content when the header is clicked */
+  .custom-dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
 .input-field textarea {
   height: 100%;
   width: 100%;
@@ -417,4 +430,130 @@ textarea::-webkit-scrollbar {
   }
     
   
+  
+
+  @media only screen and (max-width: 410px) and (min-width: 390px){
+    .container{
+      width:90%;
+      transform:translateY(7px);
+    }
+
+    .header{
+      transform:translateY(73px);
+    }
+
+    .notification{
+      top:0px;
+    }
+  }
+
+  @media only screen and (max-width: 412px) and (min-width: 400px){
+    .container{
+      width:90%;
+      transform:translateY(8px);
+    }
+
+    .header{
+      transform:translateY(83px);
+    }
+  }
+
+  .notification{
+    transform:translateY(260px);
+  }
+
+  
+  @media only screen and (max-width: 425px) and (min-width: 413px){
+    .container{
+      width:90%;
+      transform:translateY(10px);
+    }
+
+    .header{
+      transform: translateY(70px);
+    }
+
+    .notification{
+        top:-240px;
+    }
+  }
+
+  
+
+
+   @media only screen and (max-width:390px) and (max-height:844px){
+    .notification{
+      transform:translateY(15px);
+    }
+   }
+
+   @media only screen and (max-width:540px) and (max-height:720px){
+    .notification{
+      transform:translateY(3px);
+    }
+   }
+
+  @media only screen and (max-width:280px) and (max-height:653px){
+    .notification{
+      transform:translateY(-11px);
+      transform:translateX(18px);
+    }
+  }
+
+  @media only screen and (max-width:1024px) and (max-height:600px){
+    .notification{
+      transform:translateY(-595px);
+    }
+  }
+
+  @media only screen and (min-width:1280px) {
+    .notification{
+      transform:translateY(150px);
+    }
+  }
+
+
+  @media only screen and (min-width:1300px){
+    .notification{
+      transform:translateY(-50px);
+    }
+  }
+
+  @media only screen and (max-width:430px) and (max-height:932px){
+    .container{
+      transform:translateY(-10px);
+      width:90%
+    }
+    .header{
+      transform:translateY(70px)
+    }
+  }
+
+/* here we start now : */
+  @media only screen and (max-width:375px) and (max-height:740px){
+    .header{
+      transform:translateY(10px);
+    }
+    .container{
+      transform:translateY(-70px)
+    }
+    .notification{
+      transform:translateY(10px);
+    }
+    .container .todoLists {
+      max-height: 330px;
+    }
+  }
+
+@media only screen and (max-width:440px) and (max-height:940px){
+  .container .todoLists {
+    max-height: 570px;
+  }
+  .header{
+    transform:translateY(16px)
+  }
+  .container{
+    transform:translateY(-80px);
+  }
+}
   
