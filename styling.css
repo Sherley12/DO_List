@@ -10,7 +10,7 @@
 
 
 body {
-    background-image: url('mount2.jpg');
+    background-image: url(mount2.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -40,7 +40,6 @@ header
     color:black;
     min-height: 10vh;
     display:block;
-    /* transform: translateX(200%); */
     display: flex;
     justify-content:center;
    text-align:center;
@@ -61,10 +60,7 @@ header
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  /* background: #ccc;
-  background: #63144f; */
   background: rgb(233, 221, 155);
-  /* background: rgb(230, 92, 104);; */
 }
 
 /* Handle on hover */
@@ -81,12 +77,9 @@ header
   margin: 85px auto 0;
   background-color: transparent;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  transform: translateY(-78px);
   transform: translateY(-90px);
   padding-bottom: 0;
   
-
-  /* height: 540px; */
 }
 
 .container .input-field {
@@ -95,46 +88,10 @@ header
   width: 100%;
 }
 
-.custom-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-header {
-    background-color: #4070f4;
-    color: #fff;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    z-index: 1;
-  }
-  
-  .dropdown-option {
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .dropdown-option:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Show the dropdown content when the header is clicked */
-  .custom-dropdown:hover .dropdown-content {
-    display: block;
-  }
   
 .input-field textarea {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 40px);
   outline: none;
   font-size: 18px;
   font-weight: 400;
@@ -143,7 +100,8 @@ header
   border: 1px solid #ccc;
   resize: none;
   color: #111111;
-  overflow:auto;
+  overflow:hidden;
+  -moz-appearance: none; 
 }
 
 .input-field textarea:focus {
@@ -157,16 +115,18 @@ textarea::-webkit-scrollbar {
 .input-field .note-icon {
   position: absolute;
   top: 50%;
-  right: 15px;
+  right: 5px;
   transform: translateY(-50%);
   pointer-events: auto;
-  font-size: 24px;
+  font-size: 32px;
   color: #707070;
 
 }
  .note-icon {
     cursor: pointer;
     transition:transform, 0.3s ease;
+    
+    
 }
 
 .note-icon::before{
@@ -196,7 +156,6 @@ textarea::-webkit-scrollbar {
   align-items: center;
   list-style: none;
   background-color: #dae9f1;
-  /* background: rgb(233, 221, 155); */
   padding: 20px 15px;
   border-radius: 8px;
   margin-top: 10px;
@@ -207,7 +166,6 @@ textarea::-webkit-scrollbar {
 
 .todoLists .list.hovered {
   background-color: rgb(236, 137, 124);
-  /* background-color: rgb(230, 92, 104); */
 }
 
 .todoLists .list input {
@@ -270,7 +228,7 @@ textarea::-webkit-scrollbar {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transform: translateY(-30%);
+  transform: translateY(-10%);
 }
 
 .clear-button:hover {
@@ -289,94 +247,24 @@ textarea::-webkit-scrollbar {
   }
 
 }
-@media screen and (max-width: 1024px){
-  .container {
-    transform: translateY(-100px);
-  }
-}
- /* .filter-todo {
-  overflow: hidden;
-  top:auto;
-  bottom: 100%;
-}  */
 
-/* media screen and (max-width:1024){
-  .filter-todo{
-     width: 3px;
-    height: 1px;
-  }
 
-}  
-
-*/
-
- .notification {
-    /* box-sizing:border-box;
-    /* text-align: center; */
-    /* left: 50% ; */
-    /* top: 20px; */
-    /* transform: translateX(-50%);  */
-    /* color: #fff; */ 
+ .notification {  
     padding: 8px;
-    min-width: 300px;
-    /* min-height: 100%; */
+    min-width: 300px;  
     right:0px;
-    /* bottom: 0px; */
     top:596px;
     border-radius: 4px;
-    /* border-left: 4px solid #fff; */
     font-size: 18px;
-    position:absolute;
-    /* z-index: 1000; */
-    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
-    /* transition: opacity 0.5s ease-in-out; */
-    
+    overflow-wrap: break-word;
+    position:absolute;   
 } 
    
-
-/* .notification {
-  padding: 1px;
-  min-width: 200px;
-  right: 50%;
-  bottom: 20px;
-  transform: translateX(50%);
-  border-radius: 8px;
-  height:auto;
-  font-size: 16px;
-  position: fixed;
-  z-index: 1000;
-  /* background-color: #333; */
-  /* color: #fff;
-  text-align: center;
-  justify-content: center; */
-  /* opacity: 0; */
-  /* transition: opacity 0.5s ease-in-out; */
-/* } */
-
-/* @media screen and (max-width: 768px) {
-  .notification {
-      width: 90%;
-      max-width: 300px;
-      bottom: 10px;
-      right: 50%;
-      transform: translateX(50%);
-  }
-} */
-
-
- 
-
 .success {
-    background-color:  #ced8f3;
-    background-color:  #bdeba8;
-    background-image: linear-gradient(to right,#7cebaa,#b0eeb9);
-    background-image: linear-gradient(to right, #DECBA4, #3E5151);
-    /* background-image: linear-gradient(to right, #ff6e7f, #bfe9ff); */
     background-image: linear-gradient(to right, #00b09b, #96c93d);
 
 }
 .danger {
-    background-color:  #bdeba8;
     background-image: linear-gradient(to right, #D1BAD2, #2884B8);
   } 
    
@@ -430,130 +318,107 @@ textarea::-webkit-scrollbar {
   }
     
   
-  
+/* start from here */
 
-  @media only screen and (max-width: 410px) and (min-width: 390px){
-    .container{
-      width:90%;
-      transform:translateY(7px);
-    }
+@media only screen and (min-width:350px) and (max-width:380px) {
+  .container{
+    width:90%;
+  }
+  .container .todoLists{
+    max-height:400px
+  }
+  .notification{
+    transform: translateY(24px);
+  }
+}
 
-    .header{
-      transform:translateY(73px);
-    }
+@media only screen and (min-width:390px) and (max-width:440px){
+  .container{
+    width:90%;
+  }
+  .container .todoLists{
+    max-height:490px;
+  }
+  .notification{
+    transform:translateY(200px);
+  }
+}
 
-    .notification{
-      top:0px;
-    }
+@media only screen and (min-width:700px) and (max-width:1000px){
+  .container{
+    max-width:90%;
+    transform: translateY(10px);
   }
 
-  @media only screen and (max-width: 412px) and (min-width: 400px){
-    .container{
-      width:90%;
-      transform:translateY(8px);
-    }
+  .container .todoLists{
+    max-height:500px;
+  }
 
-    .header{
-      transform:translateY(83px);
-    }
+  .header{
+    transform:translateY(90px);
   }
 
   .notification{
-    transform:translateY(260px);
-  }
-
-  
-  @media only screen and (max-width: 425px) and (min-width: 413px){
-    .container{
-      width:90%;
-      transform:translateY(10px);
-    }
-
-    .header{
-      transform: translateY(70px);
-    }
-
-    .notification{
-        top:-240px;
-    }
-  }
-
-  
-
-
-   @media only screen and (max-width:390px) and (max-height:844px){
-    .notification{
-      transform:translateY(15px);
-    }
-   }
-
-   @media only screen and (max-width:540px) and (max-height:720px){
-    .notification{
-      transform:translateY(3px);
-    }
-   }
-
-  @media only screen and (max-width:280px) and (max-height:653px){
-    .notification{
-      transform:translateY(-11px);
-      transform:translateX(18px);
-    }
-  }
-
-  @media only screen and (max-width:1024px) and (max-height:600px){
-    .notification{
-      transform:translateY(-595px);
-    }
-  }
-
-  @media only screen and (min-width:1280px) {
-    .notification{
-      transform:translateY(150px);
-    }
-  }
-
-
-  @media only screen and (min-width:1300px){
-    .notification{
-      transform:translateY(-50px);
-    }
-  }
-
-  @media only screen and (max-width:430px) and (max-height:932px){
-    .container{
-      transform:translateY(-10px);
-      width:90%
-    }
-    .header{
-      transform:translateY(70px)
-    }
-  }
-
-/* here we start now : */
-  @media only screen and (max-width:375px) and (max-height:740px){
-    .header{
-      transform:translateY(10px);
-    }
-    .container{
-      transform:translateY(-70px)
-    }
-    .notification{
-      transform:translateY(10px);
-    }
-    .container .todoLists {
-      max-height: 330px;
-    }
-  }
-
-@media only screen and (max-width:440px) and (max-height:940px){
-  .container .todoLists {
-    max-height: 570px;
-  }
-  .header{
-    transform:translateY(16px)
-  }
-  .container{
-    transform:translateY(-80px);
+    transform:translateY(300px);
   }
 }
-  
+
+@media only screen and (min-width:200px) and (max-width:300px){
+  .container{
+    width:90%
+  }
+
+  .notification{
+    transform: translateY(10px);
+    overflow-wrap: break-word;
+    min-width: 3px;
+  }
+
+  .pending-tasks::before {
+    top: auto;
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+}
+
+@media only screen and (max-width:1024px) and (min-height:1200px) and (max-height:1366px){
+  .container{
+    max-width:90%;
+  }
+
+  .container .todoLists{
+    max-height:800px;
+  }
+
+  .header{
+    transform: translateY(20px);
+  }
+
+  .notification{
+    transform:translateY(600px);
+    font-size:30px;
+  }
+}
+
+@media only screen and (max-width:1024px) and (min-height:500px) and (max-height:600px){
+  .container{
+    max-width:90%;
+  }
+  .container .todoLists{
+    max-height:300px;
+  }
+  .notification{
+    transform:translateY(-40px);
+  }
+}
+
+
+
+
+
+@supports (-moz-appearance:none) {
+   .todoLists {
+        scrollbar-width: thin;
+        scrollbar-color: rgb(233, 221, 155)rgb(8, 8, 8)
+    }
+  }

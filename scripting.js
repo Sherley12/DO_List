@@ -72,7 +72,7 @@ inputField.addEventListener("keydown", (e) => {
   
     if (inputVal.length >= 100 && e.key !== "Backspace") {
       e.preventDefault(); // Prevent input when character limit is reached
-      showNotification("Max 100 characters is allowed)", "danger");
+      showNotification("Maximum Reached)", "danger");
     } else if (e.key === "Enter" && inputVal.trim().length > 0) {
       e.preventDefault(); // Prevent the default Enter key behavior (new line)
   
@@ -90,11 +90,11 @@ inputField.addEventListener("keydown", (e) => {
       !alphanumericRegex.test(e.key)
     ) {
       e.preventDefault(); // Prevent input of special characters
-      showNotification("Special characters are not allowed", "danger");
+      showNotification("Invalid Character", "danger");
     }
 });
 
-// Add a 'paste' event listener to filter out special characters
+// 8 (a) Add a 'paste' event listener to filter out special characters
 inputField.addEventListener("paste", (e) => {
     e.preventDefault(); // Prevent the default paste behavior
     const pastedText = (e.clipboardData || window.clipboardData).getData('text');
@@ -102,7 +102,7 @@ inputField.addEventListener("paste", (e) => {
     inputField.setRangeText(filteredText, inputField.selectionStart, inputField.selectionEnd, 'end'); // Insert the filtered text
 });
 
-// Update paste event listener for editable area (span with contentEditable)
+// 8 (b) Update paste event listener for editable area (span with contentEditable)
 document.addEventListener("paste", (e) => {
     const activeElement = document.activeElement;
     if (activeElement.tagName === "SPAN" && activeElement.contentEditable === "true") {
@@ -115,7 +115,7 @@ document.addEventListener("paste", (e) => {
 
 
 
-// 8. Note icon
+// 9(a) Note icon
 noteIcon.addEventListener("click", () => {
     const inputVal = inputField.value.trim();
     if (inputVal.length > 0) {
@@ -131,7 +131,7 @@ noteIcon.addEventListener("click", () => {
     }
 });
 
-//  event listener
+// 9(b) note-event listener
 noteIcon.addEventListener('click', () => {
     // Toggle the "clicked" class on the note-icon
     noteIcon.classList.toggle('clicked');
@@ -140,19 +140,19 @@ noteIcon.addEventListener('click', () => {
     }, 300);
 });
 
-// 9. Function to check character length and activate scrolling
+// 10. Function to check character length and activate scrolling
 function checkAndEnableScroll() {
     const inputVal = inputField.value.trim();
     const maxCharacterLimit = 100; // Maximum character limit
     if (inputVal.length > maxCharacterLimit) {
         inputField.style.overflowY = "auto";
-        showNotification("Character limit exceeded (max 100 characters)", "danger");
+        showNotification("Maximum Reached", "danger");
     } else {
         inputField.style.overflowY = "hidden";
     }
 }
 
-// 10. Single task Deletion
+// 11. Single task Deletion
 function deleteTask(e) {
     const listItem = e.parentElement;
     const taskText = listItem.querySelector('.task').textContent;
@@ -169,7 +169,7 @@ function deleteTask(e) {
     );
 }
 
-// 11. Confirmation Dialog
+// 12. Confirmation Dialog
 function showConfirmationDialog(message, onConfirm, onCancel) {
     const confirmationDialog = document.getElementById("confirmationDialog");
     const confirmationMessage = document.getElementById("confirmationMessage");
@@ -191,7 +191,7 @@ function showConfirmationDialog(message, onConfirm, onCancel) {
     confirmationDialog.style.display = "flex";
 }
 
-// 12. All task deletion - Clear all Button
+// 13. All task deletion - Clear all Button
 clearButton.addEventListener("click", () => {
     const tasks = document.querySelectorAll(".list");
 
@@ -212,7 +212,7 @@ clearButton.addEventListener("click", () => {
 
 
 
- // 13. Enable Edit Mode
+ // 14. Enable Edit Mode
 function enableEditMode(listItem) {
     const isCompleted = listItem.classList.contains('completed');
     const span = listItem.querySelector('.task');
@@ -235,10 +235,10 @@ function enableEditMode(listItem) {
                 saveEditedTask(listItem, span, originalText, newText);
             } else if (!(alphanumericRegex.test(e.key) || e.key === "Backspace" || e.key === "Enter")) {
                 e.preventDefault(); // Prevent input of special characters
-                showNotification("Special characters are not allowed", "danger");
+                showNotification("Invalid Character", "danger");
             } else if (newText.length >= 100 && e.key.length === 1 && span.selectionStart === span.selectionEnd) {
                 e.preventDefault();
-                showNotification("Maximum character limit reached (max 100 characters)", "danger");
+                showNotification("Maximum Reached", "danger");
             }
         });
 
@@ -259,7 +259,7 @@ function enableEditMode(listItem) {
             if (newText.length > 100) {
                 newText = newText.slice(0, 100);
                 span.textContent = newText;
-                showNotification("Maximum character limit reached (max 100 characters)", "danger");
+                showNotification("Maximum Reached", "danger");
             }
             newText = newText.replace(/\s+/g, ' ');
             if (newText.length !== originalText.length) {
@@ -299,7 +299,7 @@ function enableEditMode(listItem) {
 
 
 
-// 28. Modify the event listener for the text
+// 15. Modify the event listener for the text
 document.addEventListener("click", (e) => {
     const target = e.target;
     if (target.classList.contains('task')) {
@@ -393,7 +393,7 @@ function addTaskToList(taskText, isCompleted) {
     }
 
 }
-
+//21. function to update checkbox
 function updateTaskStatus(checkbox) {
     const listItem = checkbox.closest('.list');
     const isCompleted = checkbox.checked;
@@ -438,7 +438,7 @@ function updateTaskStatus(checkbox) {
 }
 
 
-// Function to disable edit mode
+// 22. Function to disable edit mode
 function disableEditMode(listItem) {
     const span = listItem.querySelector('.task');
     span.contentEditable = false;
@@ -449,49 +449,6 @@ function disableEditMode(listItem) {
     // Disable interaction for the completed task
     listItem.style.pointerEvents = 'auto';
 }
-
-
-
-
-
-
-
-// // // 21. Helper function to handle task status update
-// function handleTaskStatusUpdate(listItem, isCompleted) {
-//     const span = listItem.querySelector('.task');
-//     const newText = span.textContent.trim();
-    
-//     if (isCompleted) {
-//         if (newText.length > 0) {
-//             listItem.classList.add('completed');
-//             showNotification("Your task is completed", "success");
-//         } else {
-//             // If the task is empty, don't mark it as completed
-//             checkbox.checked = false;
-//             showNotification("Task cannot be empty", "danger");
-//             return;
-//         }
-//     } else {
-//         if (newText.length > 0) {
-//             listItem.classList.remove('completed');
-//             showNotification("Task status is Modified", "success");
-//         } else {       
-//             // If the task is empty, remove it from the list
-//             listItem.remove();
-//             showNotification("Task cannot be empty", "danger");
-//             updateLocalStorage();
-//             allTasks();
-//             filterTasks();
-//             updateTaskCounts();
-//             return;
-//         }
-//     }
-
-//     updateLocalStorage();
-//     allTasks();
-//     filterTasks();
-//     updateTaskCounts();
-// }
 
 
 // 22. Filter tasks based on the selected option
@@ -555,7 +512,7 @@ function showNotification(text, id) {
 }
 
  
-// 26. Add click event listener
+// 26. note icon-event listener
 noteIcon.addEventListener('click', () => {
     const inputVal = inputField.value.trim();
     if (inputVal.length > 0) {
@@ -627,3 +584,5 @@ function updateTaskStatus(checkbox) {
         handleCompletion();
     }
 }
+
+
