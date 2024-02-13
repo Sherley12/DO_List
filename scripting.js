@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     allTasks();
     filterTasks();
-});
+}); 
 
 // 3.  task counts
 function updateTaskCounts() {
@@ -31,12 +31,12 @@ function updateTaskCounts() {
 
 }
 
-// 4. calling function while adding, deleting, and checking-unchecking the task
 function allTasks() {
     let tasks = document.querySelectorAll(".list");
     let allLists = document.querySelectorAll(".list");
+ 
     
-    // Update clearButton (Clear All) based on the number of tasks
+// 4. Update clearButton (Clear All) based on the number of tasks
     if (allLists.length > 0) {
         todoLists.style.marginTop = "20px";
         clearButton.style.visibility = "visible"; // Make the button visible
@@ -72,7 +72,7 @@ inputField.addEventListener("keydown", (e) => {
   
     if (inputVal.length >= 100 && e.key !== "Backspace") {
       e.preventDefault(); // Prevent input when character limit is reached
-      showNotification("Maximum Reached)", "danger");
+      showNotification("Maximum Reached ", "danger");    //call
     } else if (e.key === "Enter" && inputVal.trim().length > 0) {
       e.preventDefault(); // Prevent the default Enter key behavior (new line)
   
@@ -81,16 +81,16 @@ inputField.addEventListener("keydown", (e) => {
         inputField.value = "";
         allTasks();
         filterTasks();
-        showNotification(" Your Task is added ", "success");
+        showNotification(" Your Task is added ", "success");  //call
       } else {
-        showNotification("Task already exists", "danger");
+        showNotification("Task already exists  ", "danger");   //call
       }
     } else if (
       e.key !== "Backspace" &&
       !alphanumericRegex.test(e.key)
     ) {
       e.preventDefault(); // Prevent input of special characters
-      showNotification("Invalid Character", "danger");
+      showNotification("Invalid Character ", "danger");     //call
     }
 });
 
@@ -124,9 +124,9 @@ noteIcon.addEventListener("click", () => {
             inputField.value = "";
             allTasks();
             filterTasks();
-            showNotification(" Your Task is added ", "success");
+            showNotification(" Your Task is added ", "success");   //call on note
         } else {
-            showNotification("Task already exists", "danger");
+            showNotification("Task already exists ", "danger");    //call on note
         }
     }
 });
@@ -140,19 +140,9 @@ noteIcon.addEventListener('click', () => {
     }, 300);
 });
 
-// 10. Function to check character length and activate scrolling
-function checkAndEnableScroll() {
-    const inputVal = inputField.value.trim();
-    const maxCharacterLimit = 100; // Maximum character limit
-    if (inputVal.length > maxCharacterLimit) {
-        inputField.style.overflowY = "auto";
-        showNotification("Maximum Reached", "danger");
-    } else {
-        inputField.style.overflowY = "hidden";
-    }
-}
 
-// 11. Single task Deletion
+
+// 10. Single task Deletion
 function deleteTask(e) {
     const listItem = e.parentElement;
     const taskText = listItem.querySelector('.task').textContent;
@@ -163,13 +153,13 @@ function deleteTask(e) {
             listItem.remove();
             allTasks();
             filterTasks();
-            showNotification(`Task has been deleted`, "danger");
+            showNotification(`Task has been deleted `, "danger");     //call
             updateLocalStorage();
         }
     );
 }
 
-// 12. Confirmation Dialog
+// 11. Confirmation Dialog
 function showConfirmationDialog(message, onConfirm, onCancel) {
     const confirmationDialog = document.getElementById("confirmationDialog");
     const confirmationMessage = document.getElementById("confirmationMessage");
@@ -191,7 +181,7 @@ function showConfirmationDialog(message, onConfirm, onCancel) {
     confirmationDialog.style.display = "flex";
 }
 
-// 13. All task deletion - Clear all Button
+// 12. All task deletion - Clear all Button
 clearButton.addEventListener("click", () => {
     const tasks = document.querySelectorAll(".list");
 
@@ -202,7 +192,7 @@ clearButton.addEventListener("click", () => {
             });
             allTasks();
             filterTasks();
-            showNotification("Your list is cleared", "danger");
+            showNotification("Your list is cleared ", "danger");     //call
             updateLocalStorage();
         });
     } else {
@@ -212,7 +202,7 @@ clearButton.addEventListener("click", () => {
 
 
 
- // 14. Enable Edit Mode
+ // 13. Enable Edit Mode
 function enableEditMode(listItem) {
     const isCompleted = listItem.classList.contains('completed');
     const span = listItem.querySelector('.task');
@@ -235,10 +225,10 @@ function enableEditMode(listItem) {
                 saveEditedTask(listItem, span, originalText, newText);
             } else if (!(alphanumericRegex.test(e.key) || e.key === "Backspace" || e.key === "Enter")) {
                 e.preventDefault(); // Prevent input of special characters
-                showNotification("Invalid Character", "danger");
+                showNotification("Invalid Character  ", "danger");   // edit call
             } else if (newText.length >= 100 && e.key.length === 1 && span.selectionStart === span.selectionEnd) {
                 e.preventDefault();
-                showNotification("Maximum Reached", "danger");
+                showNotification("Maximum Reached  ", "danger");    // edit call
             }
         });
 
@@ -254,36 +244,7 @@ function enableEditMode(listItem) {
             }
         });
 
-        span.addEventListener("blur", () => {
-            let newText = span.textContent.trim();
-            if (newText.length > 100) {
-                newText = newText.slice(0, 100);
-                span.textContent = newText;
-                showNotification("Maximum Reached", "danger");
-            }
-            newText = newText.replace(/\s+/g, ' ');
-            if (newText.length !== originalText.length) {
-                if (newText.length > 0) {
-                    listItem.remove();   // Remove the original task
-
-                    if (!isDuplicateTask(newText)) {
-                        addTaskToList(newText, listItem.classList.contains('completed'));
-                        showNotification("Your Task Updated", "success");
-                        updateLocalStorage();
-
-                    } else {
-                        showNotification("Task already exists", "danger");
-                    }
-
-                } else {
-                    listItem.remove();
-                    showNotification("Task cannot be empty", "danger");
-                    updateLocalStorage();
-                }
-            }
-            span.contentEditable = false;
-        });
-
+        
         // Remove "selected" class from all tasks
         const allTasks = document.querySelectorAll('.list');
         allTasks.forEach(task => {
@@ -299,7 +260,7 @@ function enableEditMode(listItem) {
 
 
 
-// 15. Modify the event listener for the text
+// 14. Modify the event listener for the text
 document.addEventListener("click", (e) => {
     const target = e.target;
     if (target.classList.contains('task')) {
@@ -309,41 +270,60 @@ document.addEventListener("click", (e) => {
 
 
 
-// 16. Function to save the edited task
+// 15 (a) Function to check if a task with the given text already exists
+function isDuplicateTaskText(taskText, excludeListItem) {
+    const tasks = document.querySelectorAll('.list');
+    for (const task of tasks) {
+        if (task !== excludeListItem) {
+            const existingTaskText = task.querySelector('.task').textContent.trim();
+            if (existingTaskText.toLowerCase() === taskText.toLowerCase()) {
+                return true; // Task with the same text already exists
+            }
+        }
+    }
+    return false; // No duplicate tasks found
+}
+
+// 15 (b) Function to update task status with confirmation for unchecking
 function saveEditedTask(listItem, span, originalText, newText) {
     if (newText.length !== originalText.length || newText !== originalText) {
+        // Trim excess spaces and limit to one space between words and letters
+        newText = newText.trim().replace(/\s+/g, ' ');
+
         if (newText.length > 0) {
             // Check if the edited task is a duplicate
-            const isDuplicate = isDuplicateTask(newText);
+            const isDuplicate = isDuplicateTaskText(newText, listItem);
+
             if (!isDuplicate) {
                 // Remove the original task
                 listItem.remove();
-                // Add the edited task as a new task using the modified addTaskToList
-                addTaskToList(newText, listItem.classList.contains('completed'));
-                showNotification("Your Task Updated", "success");
+                // Add the edited task as a new task at the front
+                addTaskToList(newText, listItem.classList.contains('completed'), true);
+                showNotification("Your Task Updated ", "success");   //call
                 // Update local storage after editing task
                 updateLocalStorage();
+            } else if (newText.toLowerCase() === originalText.toLowerCase()) {
+                // Show notification when the edited task is the same as the existing task
+                showNotification("Task remains unchanged", "danger");
             } else {
                 // Show notification when the edited task already exists
-                showNotification("Edited task already exists and has been deleted", "danger");
-                // Remove the edited task
-                listItem.remove();
-                // Update local storage after deleting the edited task
-                updateLocalStorage();
-                updateTaskCounts();
+                showNotification("Task already exists", "danger");       //call
+                span.textContent = originalText; // Revert the span content to the original value
             }
         } else {
             // If edited task is empty, delete the list item
             listItem.remove();
-            showNotification("Task cannot be empty", "danger");
+            showNotification("Task cannot be empty ", "danger"); // call
             // Update local storage after deleting task
             updateLocalStorage();
             updateTaskCounts();
         }
+
+        // Scroll to the top of the list
+        todoLists.scrollTop = 0;
     }
     span.contentEditable = false;
 }
-
 
   
   
@@ -354,20 +334,19 @@ function highlightOnHover(listItem) {
 }
 
  
-
-// 18. Remove highlight when not hovering
+// 17 b. Remove highlight when not hovering
 function removeHighlightOnHover(listItem) {
   listItem.classList.remove('hovered');
 }
 
-// 19. Helper function to check for duplicate tasks
+
+
+
 function isDuplicateTask(taskText) {
     const tasks = document.querySelectorAll(".list");
     return Array.from(tasks).some((task) => task.querySelector('.task').textContent.trim() === taskText);
 }
 
-
-// 20. Helper function to add a task to the list
 function addTaskToList(taskText, isCompleted) {
     const isDuplicate = isDuplicateTask(taskText);
     if (!isDuplicate) {
@@ -388,54 +367,16 @@ function addTaskToList(taskText, isCompleted) {
         allTasks();
         filterTasks();
         showNotification();
-    } else {
-        showNotification("Task already exists", "danger");
-    }
 
+        // Scroll to the top of the list
+        todoLists.scrollTop = 0;
+    } 
+    // else {
+    //     showNotification("Task already exists", "danger");
+    // }
 }
-//21. function to update checkbox
-function updateTaskStatus(checkbox) {
-    const listItem = checkbox.closest('.list');
-    const isCompleted = checkbox.checked;
 
-    // Function to handle the completion of the task
-    const handleCompletion = () => {
-        listItem.classList.toggle('completed', isCompleted);
-        showNotification(`Task is marked as ${isCompleted ? 'completed' : 'in-progress'}`, "success");
 
-        // Update local storage immediately
-        updateLocalStorage();
-
-        // Update task counts
-        updateTaskCounts();
-
-        // Filter tasks based on the selected option
-        filterTasks();
-    };
-
-    // If the task is empty, don't mark it as completed
-    const newText = listItem.querySelector('.task').textContent.trim();
-    if (isCompleted && newText.length === 0) {
-        checkbox.checked = false;
-        showNotification("Task cannot be empty", "danger");
-        return;
-    }
-
-    // If unchecking the checkbox, show a confirmation dialog
-    if (!isCompleted) {
-        showConfirmationDialog(
-            "Are you sure you want to mark this task as in-progress?",
-            handleCompletion,
-            () => {
-                // Restore the original state if the user cancels the confirmation
-                checkbox.checked = true;
-            }
-        );
-    } else {
-        // For checking the checkbox, update the UI and local storage immediately
-        handleCompletion();
-    }
-}
 
 
 // 22. Function to disable edit mode
@@ -496,7 +437,8 @@ function filterTasks() {
     // 25. Show/hide the "no tasks" message based on tasksExist
     if (!tasksExist) {
         noTasksMessage.textContent = "    You don't have any tasks here.";
-    } else {
+    } 
+    else {
         noTasksMessage.textContent = "";
     }
 }
@@ -512,22 +454,6 @@ function showNotification(text, id) {
 }
 
  
-// 26. note icon-event listener
-noteIcon.addEventListener('click', () => {
-    const inputVal = inputField.value.trim();
-    if (inputVal.length > 0) {
-        if (!isDuplicateTask(inputVal)) {
-            addTaskToList(inputVal, false);
-            inputField.value = "";
-            allTasks();
-            filterTasks();
-            showNotification(" Your Task is added ", "success");
-            updateLocalStorage();
-        } else {
-            showNotification("Task already exists", "danger");
-        }
-    }
-});
 
  
 // 27 . Helper function to update local storage with the current tasks
@@ -541,7 +467,7 @@ function updateLocalStorage() {
 }
 
 
-// Function to update task status with confirmation for unchecking
+// 28 Function to update task status with confirmation for unchecking
 function updateTaskStatus(checkbox) {
     const listItem = checkbox.closest('.list');
     const isCompleted = checkbox.checked;
@@ -584,5 +510,3 @@ function updateTaskStatus(checkbox) {
         handleCompletion();
     }
 }
-
-

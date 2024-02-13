@@ -249,16 +249,18 @@ textarea::-webkit-scrollbar {
 }
 
 
- .notification {  
-    padding: 8px;
-    min-width: 300px;  
-    right:0px;
-    top:596px;
-    border-radius: 4px;
-    font-size: 18px;
-    overflow-wrap: break-word;
-    position:absolute;   
-} 
+.notification {  
+  padding: 4px;
+  min-width: 300px; 
+  max-height:40px; 
+  right: 0px;
+  bottom: 0; /* Position at the bottom */
+  border-radius: 4px;
+  font-size: 18px;
+  overflow-wrap: break-word;
+  position: fixed;   
+}
+ 
    
 .success {
     background-image: linear-gradient(to right, #00b09b, #96c93d);
@@ -327,9 +329,7 @@ textarea::-webkit-scrollbar {
   .container .todoLists{
     max-height:400px
   }
-  .notification{
-    transform: translateY(24px);
-  }
+
 }
 
 @media only screen and (min-width:390px) and (max-width:440px){
@@ -337,11 +337,9 @@ textarea::-webkit-scrollbar {
     width:90%;
   }
   .container .todoLists{
-    max-height:490px;
+    max-height:520px;
   }
-  .notification{
-    transform:translateY(200px);
-  }
+ 
 }
 
 @media only screen and (min-width:700px) and (max-width:1000px){
@@ -357,10 +355,6 @@ textarea::-webkit-scrollbar {
   .header{
     transform:translateY(90px);
   }
-
-  .notification{
-    transform:translateY(300px);
-  }
 }
 
 @media only screen and (min-width:200px) and (max-width:300px){
@@ -368,11 +362,6 @@ textarea::-webkit-scrollbar {
     width:90%
   }
 
-  .notification{
-    transform: translateY(10px);
-    overflow-wrap: break-word;
-    min-width: 3px;
-  }
 
   .pending-tasks::before {
     top: auto;
@@ -394,10 +383,6 @@ textarea::-webkit-scrollbar {
     transform: translateY(20px);
   }
 
-  .notification{
-    transform:translateY(600px);
-    font-size:30px;
-  }
 }
 
 @media only screen and (max-width:1024px) and (min-height:500px) and (max-height:600px){
@@ -407,14 +392,8 @@ textarea::-webkit-scrollbar {
   .container .todoLists{
     max-height:300px;
   }
-  .notification{
-    transform:translateY(-40px);
-  }
+  
 }
-
-
-
-
 
 @supports (-moz-appearance:none) {
    .todoLists {
@@ -422,3 +401,23 @@ textarea::-webkit-scrollbar {
         scrollbar-color: rgb(233, 221, 155)rgb(8, 8, 8)
     }
   }
+
+  @media only screen and (min-width:360px) and (max-width:384px) and (min-height:667px) and (max-height:854px) {
+   .container{
+    width:90%;
+   }
+   .container .todoLists{
+    max-height:470px;
+  }
+  
+  }
+
+
+  @media only screen and (max-width:375px) and (max-height:667px){
+    .container .todoLists{
+      max-height:355px;
+    }
+  }
+
+
+ 
