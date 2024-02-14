@@ -66,33 +66,41 @@ function allTasks() {
 // 7. Alpha numeric 
 inputField.addEventListener("keydown", (e) => {
     let inputVal = inputField.value.trim();
-  
+
     // Regular expression to allow only alphanumeric characters and space
     const alphanumericRegex = /^[a-zA-Z0-9 ]*$/;
-  
+
     if (inputVal.length >= 100 && e.key !== "Backspace") {
-      e.preventDefault(); // Prevent input when character limit is reached
-      showNotification("Maximum Reached ", "danger");    //call
-    } else if (e.key === "Enter" && inputVal.trim().length > 0) {
-      e.preventDefault(); // Prevent the default Enter key behavior (new line)
-  
-      if (!isDuplicateTask(inputVal)) {
-        addTaskToList(inputVal, false); // Pass false to indicate an uncompleted task
-        inputField.value = "";
-        allTasks();
-        filterTasks();
-        showNotification(" Your Task is added ", "success");  //call
-      } else {
-        showNotification("Task already exists  ", "danger");   //call
-      }
+        e.preventDefault(); // Prevent input when character limit is reached
+        showNotification("Maximum Reached ", "danger");
+    } else if (e.key === "Enter") {
+        e.preventDefault(); 
+
+        if (inputVal.trim().length > 0) {
+            if (!isDuplicateTask(inputVal)) {
+                addTaskToList(inputVal, false); // Pass false to indicate an uncompleted task
+                inputField.value = "";
+                allTasks();
+                filterTasks();
+                showNotification(" Your Task is added ", "success");
+            } else {
+                showNotification("Task already exists  ", "danger");
+            }
+        } else {
+            e.preventDefault(); // Prevent Enter key behavior when input is empty
+            showNotification("Enter the Character ", "danger");
+        }
     } else if (
-      e.key !== "Backspace" &&
-      !alphanumericRegex.test(e.key)
+        e.key !== "Backspace" &&
+        !alphanumericRegex.test(e.key) &&
+        inputVal.length === 0
     ) {
-      e.preventDefault(); // Prevent input of special characters
-      showNotification("Invalid Character ", "danger");     //call
-    }
+        e.preventDefault(); // Prevent input of non-alphanumeric characters when the input field is empty
+        showNotification("Invalid Character ", "danger");
+    } 
 });
+
+
 
 // 8 (a) Add a 'paste' event listener to filter out special characters
 inputField.addEventListener("paste", (e) => {
