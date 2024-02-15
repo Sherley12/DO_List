@@ -48,15 +48,7 @@ function allTasks() {
     }
     updateTaskCounts();
 
-   
 
-
-// 5. Saving all tasks to local storage
-    const taskObjects = Array.from(tasks).reverse().map((task) => ({
-        text: task.querySelector('.task').textContent,
-        completed: task.classList.contains('completed')
-    }));
-    localStorage.setItem("tasks", JSON.stringify(taskObjects));
 
 // 6. Saving filter option to local storage
     const selectedFilterOption = filterTodo.value;
@@ -271,7 +263,7 @@ function isDuplicateTaskText(taskText, excludeListItem) {
     return false; // No duplicate tasks found
 }
 
-// 15 (b) 
+// 15 (b)                                                                   //editing
 function saveEditedTask(listItem, span, originalText, newText) {
     if (newText.length !== originalText.length || newText !== originalText) {
         // Trim excess spaces and limit to one space between words and letters
@@ -341,7 +333,7 @@ function removeHighlightOnHover(listItem) {
 
 
 
-// 17
+// 17     input
 function isDuplicateTask(taskText) {
     const tasks = document.querySelectorAll(".list");
     return Array.from(tasks).some((task) => task.querySelector('.task').textContent.trim() === taskText);
@@ -383,8 +375,6 @@ function addTaskToList(taskText, isCompleted) {
 function disableEditMode(listItem) {
     const span = listItem.querySelector('.task');
     span.contentEditable = false;
-
-    // Remove the "selected" class
     listItem.classList.remove('selected');
 
     // Disable interaction for the completed task
