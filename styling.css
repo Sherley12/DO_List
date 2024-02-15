@@ -420,4 +420,20 @@ textarea::-webkit-scrollbar {
   }
 
 
- 
+ @media only screen and (min-width:1920px) and (min-height:1080px){
+  .container .todoLists{
+    max-height:500px;
+  }
+  .container{
+    transform: translateY(2px);
+  }
+
+  .header{
+    transform:translateY(110px);
+  }
+
+  .notification{
+    min-width:400px;
+    font-size: 26px;
+  }
+ }
