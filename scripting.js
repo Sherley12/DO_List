@@ -55,7 +55,7 @@ function allTasks() {
     localStorage.setItem("filterOption", selectedFilterOption);
 }
 
-// 7. Alpha numeric 
+// 7. Alpha numeric                                                                               //inpu
 inputField.addEventListener("keydown", (e) => {
     let inputVal = inputField.value.trim();
 
@@ -403,6 +403,7 @@ function filterTasks() {
     let tasksExist = false;
     tasks.forEach((task) => {
         const isCompleted = task.classList.contains('completed');
+        updateTaskCounts();
         switch (selectedOption) {
             case "all":
                 task.style.display = "flex";
@@ -419,7 +420,7 @@ function filterTasks() {
                 tasksExist = tasksExist || !isCompleted;
                 break;
 
-                updateTaskCounts();
+                
         }
     });
 
